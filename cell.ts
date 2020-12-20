@@ -1,15 +1,42 @@
+import Distances from "./dijkstras";
+
 /**
  * A cell in a {@link Grid}.
  * @class
  */
 class Cell {
+  /**
+   * What row this cell is in.
+   */
   row: number;
+  /**
+   * What column this cell is in.
+   */
   column: number;
+  /**
+   * The cells this cell is linked to.
+   */
   links: Cell[];
+  /**
+   * The neighbor to the north of this cell.
+   */
   north: Cell | null;
+  /**
+   * The neighbor to the south of this cell.
+   */
   south: Cell | null;
+  /**
+   * The neighbor to the east of this cell.
+   */
   east: Cell | null;
+  /**
+   * The neighbor to the west of this cell.
+   */
   west: Cell | null;
+  /**
+   * The distance of this cell to the root cell.
+   */
+  distance: number;
   /**
    * Create a cell.
    * @constructor
@@ -63,6 +90,50 @@ class Cell {
     this.south = south;
     this.east = east;
     this.west = west;
+  }
+
+  neighbors() {
+    const neighbors: Cell[] = [];
+    if (this.north) neighbors.push(this.north);
+    if (this.south) neighbors.push(this.south);
+    if (this.east) neighbors.push(this.east);
+    if (this.west) neighbors.push(this.west);
+    return neighbors;
+  }
+
+  /**
+   * Get the coordinates of this cell as a string.
+   */
+  getCoords() {
+    return `${this.row},${this.column}`;
+  }
+  /**
+   * Set the distance of this cell to the root cell.
+   * @param distance The distance to set it to.
+   */
+  setDistance(distance: number) {
+    this.distance = distance;
+  }
+  /**
+   * Run Dijkstra's algorithm on this cell.
+   */
+  distances() {
+    const distances = new Distances(this);
+    let frontier: Cell[] = [this];
+    while (frontier.length > 0) {
+      const new_frontier = [];
+      frontier.forEach((cell) => {
+        for (let i = 0; i < cell.links.length; i++) {
+          const linked = cell.links[i];
+          if (distances.getCell(linked)) continue;
+          linked.setDistance(distances.getCell(cell).distance + 1);
+          distances.cells.push(linked);
+          new_frontier.push(linked);
+        }
+      });
+      frontier = new_frontier;
+    }
+    return distances;
   }
 }
 export default Cell;

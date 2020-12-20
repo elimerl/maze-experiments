@@ -27,7 +27,7 @@ console.log(maze.toString());
 // write to png
 maze.toCanvas().createPNGStream().pipe(createWriteStream("maze.png"));
 ```
-
+More in [examples](examples/)
 ## Docs
 
 The documentation is online at [https://elimerl.github.io/maze-experiments/](https://elimerl.github.io/maze-experiments/). For the latest version (in case I forgot to rebuild docs) clone the repository and run.
