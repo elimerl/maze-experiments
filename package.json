@@ -22,7 +22,7 @@
     "typedoc": "^0.19.2"
   },
   "scripts": {
-    "docs": "typedoc --theme minimal --out docs *.ts && touch docs/.nojekyll",
+    "docs": "typedoc --theme minimal --out docs src && touch docs/.nojekyll",
     "build": "concurrently \"tsc\" \"yarn docs\""
   }
 }
