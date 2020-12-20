@@ -20,6 +20,6 @@
     "typescript": "^4.1.3"
   },
   "scripts": {
-    "docs": "typedoc --theme minimal --out docs *.ts"
+    "docs": "typedoc --theme minimal --out docs *.ts && touch docs/.nojekyll"
   }
 }
