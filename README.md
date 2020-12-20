@@ -17,7 +17,6 @@ yarn install
 ## Example
 
 ```typescript
-
 import { createWriteStream } from "fs";
 const maze = new Grid(10, 10);
 BinaryTree.on(maze);
@@ -27,7 +26,7 @@ console.log(maze.toString());
 maze.toCanvas().createPNGStream().pipe(createWriteStream("maze.png"));
 ```
 
-More in [examples](examples/)
+More in [examples](https://github.com/elimerl/maze-experiments/tree/master/examples/)
 
 ## Docs
 

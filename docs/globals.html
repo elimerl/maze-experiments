@@ -67,15 +67,14 @@
 			<a href="#example" id="example" style="color: inherit; text-decoration: none;">
 				<h2>Example</h2>
 			</a>
-			<pre><code class="language-typescript">
-<span class="hljs-keyword">import</span> { createWriteStream } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;fs&quot;</span>;
+			<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { createWriteStream } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;fs&quot;</span>;
 <span class="hljs-keyword">const</span> maze = <span class="hljs-keyword">new</span> Grid(<span class="hljs-number">10</span>, <span class="hljs-number">10</span>);
 BinaryTree.on(maze);
 <span class="hljs-comment">// show ascii</span>
 <span class="hljs-built_in">console</span>.log(maze.toString());
 <span class="hljs-comment">// write to png</span>
 maze.toCanvas().createPNGStream().pipe(createWriteStream(<span class="hljs-string">&quot;maze.png&quot;</span>));</code></pre>
-			<p>More in <a href="examples/">examples</a></p>
+			<p>More in <a href="https://github.com/elimerl/maze-experiments/tree/master/examples/">examples</a></p>
 			<a href="#docs" id="docs" style="color: inherit; text-decoration: none;">
 				<h2>Docs</h2>
 			</a>
