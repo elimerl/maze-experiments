@@ -1,5 +1,5 @@
 {
     "hooks": {
-        "pre-commit": "yarn docs && git add -A docs && git commit -m \"Build docs\""
+        "pre-commit": "yarn docs && git add -A docs "
     }
 }
