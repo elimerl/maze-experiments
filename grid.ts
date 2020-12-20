@@ -1,11 +1,19 @@
 import { createCanvas, CanvasRenderingContext2D } from "canvas";
 import Cell from "./cell";
-
+/**
+ * A grid of {@link Cell}s.
+ * @class
+ */
 class Grid {
   rows: number;
   columns: number;
   data: Cell[][];
   size: number;
+  /**
+   * Create a grid of {@link Cell}s.
+   * @param rows The amount of rows the grid should have.
+   * @param columns The amount of columns the grid should have.
+   */
   constructor(rows = 10, columns = 10) {
     this.rows = rows;
     this.columns = columns;
@@ -13,6 +21,12 @@ class Grid {
     this.confCells();
     this.size = rows * columns;
   }
+  /**
+   * Get the cell at the specified position.
+   * @param row The row the cell is in.
+   * @param column The column the cell is in.
+   * @returns The cell at the position, or null if the position is out of the grid range.
+   */
   getCell(row, column) {
     try {
       return this.data[row][column];
@@ -20,6 +34,10 @@ class Grid {
       return null;
     }
   }
+  /**
+   * Fill the grid with cells.
+   * @returns The grid data.
+   */
   prepGrid() {
     const rows = new Array(this.rows);
     for (let i = 0; i < rows.length; i++) {
@@ -30,6 +48,9 @@ class Grid {
     }
     return rows;
   }
+  /**
+   * Add the neighbors of each cell in the grid.
+   */
   confCells() {
     this.data.forEach((row) => {
       row.forEach((cell) => {
@@ -42,6 +63,9 @@ class Grid {
       });
     });
   }
+  /**
+   * Convert the grid to an ASCII representation.
+   */
   toString() {
     let output = "+" + "---+".repeat(this.columns) + "\n";
     this.data.forEach((row) => {
@@ -60,6 +84,11 @@ class Grid {
     });
     return output;
   }
+  /**
+   * Create a canvas from the grid.
+   * @param cellSize The size of each cell in the image in pixels.
+   * @returns The canvas with the lines in it.
+   */
   toCanvas(cellSize = 20) {
     const imgWidth = cellSize * this.columns;
     const imgHeight = cellSize * this.rows;
@@ -85,6 +114,29 @@ class Grid {
     return canvas;
   }
 }
+/**
+ * INTERNAL -- Draw a line from x1,y1 to x2,y2 with color and line width.
+ * @example
+ * ```typescript
+ * const canvas = createCanvas(20,20)
+ * const ctx = canvas.getContext('2d')
+ *
+ * const lineTo = line.bind(undefined, ctx)
+ * lineTo(0,0,10,10) // Draw a line from '0,0' to '10,10'
+ * ```
+ * @param ctx The canvas rendering context. Recommended to bind this e.g.
+ * ```ts
+ * const ctx = getRenderingContextSomehow()
+ * const lineTo = line.bind(undefined, ctx)
+ * ```
+ * @param x1 The source x.
+ * @param y1 The source y.
+ * @param x2 The destination x.
+ * @param y2 The destination y.
+ * @param color The color of the line.
+ * @param width The width of the line.
+ * @internal
+ */
 function line(
   ctx: CanvasRenderingContext2D,
   x1: number,
@@ -92,7 +144,7 @@ function line(
   x2: number,
   y2: number,
   color: string,
-  width?: number
+  width = 1
 ) {
   ctx.strokeStyle = color;
   ctx.lineWidth = width;
