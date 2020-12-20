@@ -2,7 +2,8 @@
   "name": "mazes",
   "version": "1.0.0",
   "description": "Mazes",
-  "main": "cli.js",
+  "main": "lib/main.js",
+  "types": "types/main.d.ts",
   "author": "elimerl",
   "license": "MIT",
   "dependencies": {

@@ -1,7 +1,7 @@
 /**
  * Generate a maze using Binary Tree and pathfind between two random cells.
  */
-import { BinaryTree, DistanceGrid } from "../lib/main";
+import { BinaryTree, DistanceGrid } from "../";
 const grid = new DistanceGrid(8, 8);
 BinaryTree.on(grid);
 // set start and goal

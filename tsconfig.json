@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "outDir": "lib",
-        "lib": ["ES2017"]
+        "lib": ["ES2017"],
+        "declaration": true,
+        "declarationDir": "types"
     },
     "include": ["src/*.ts"]
 }

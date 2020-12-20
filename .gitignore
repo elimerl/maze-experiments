@@ -116,4 +116,6 @@ dist
 .pnp.*
 # Images
 *.png
+# Build output
 lib
+types
