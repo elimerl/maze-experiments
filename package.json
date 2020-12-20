@@ -1,0 +1,20 @@
+{
+  "name": "mazes",
+  "version": "1.0.0",
+  "description": "Mazes",
+  "main": "cli.js",
+  "author": "elimerl",
+  "license": "MIT",
+  "dependencies": {
+    "@types/lodash": "^4.14.165",
+    "@types/ndarray": "^1.0.8",
+    "canvas": "^2.6.1",
+    "lodash": "^4.17.20",
+    "ndarray": "^1.0.19",
+    "open": "^7.3.0",
+    "zeros": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
+}
