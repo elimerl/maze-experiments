@@ -1,5 +1,5 @@
-import DistanceGrid from "./distancegrid";
-import AldousBroder from "./aldousbroder";
+import DistanceGrid from "../src/distancegrid";
+import AldousBroder from "../src/aldousbroder";
 import { createWriteStream, writeFileSync } from "fs";
 const grid = new DistanceGrid(20, 20);
 AldousBroder.on(grid, (grid, iterations, current) => {

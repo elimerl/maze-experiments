@@ -1,5 +1,5 @@
-import DistanceGrid from "./distancegrid";
-import BinaryTree from "./binarytree";
+import DistanceGrid from "../src/distancegrid";
+import BinaryTree from "../src/binarytree";
 import { createWriteStream } from "fs";
 const grid = new DistanceGrid(8, 8);
 BinaryTree.on(grid);

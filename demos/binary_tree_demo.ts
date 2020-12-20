@@ -1,5 +1,5 @@
-import Grid from "./grid";
-import BinaryTree from "./binarytree";
+import Grid from "../src/grid";
+import BinaryTree from "../src/binarytree";
 import { createWriteStream } from "fs";
 import * as open from "open";
 

@@ -9,10 +9,7 @@ class AldousBroder {
    * Run Aldous-Broder on `grid`.
    * @param grid The grid to generate a maze on.
    */
-  static on(
-    grid: Grid,
-    cb?: (grid: Grid, iterations: number, current: Cell) => void
-  ) {
+  static on(grid: Grid, cb = nullCb) {
     let current = grid.getCell(0, 0);
     let unvisited = grid.size - 1;
     let iterations = 0;
@@ -30,3 +27,6 @@ class AldousBroder {
   }
 }
 export default AldousBroder;
+function nullCb(grid: Grid, iterations: number, current: Cell) {
+  return void 0;
+}
