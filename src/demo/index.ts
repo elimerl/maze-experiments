@@ -7,17 +7,139 @@ const canvas: Canvas = document.getElementById("maze");
 document.getElementById("start").onclick = gen;
 document.getElementById("save").onclick = save;
 
-document.getElementById("width").oninput = gen;
-document.getElementById("height").oninput = gen;
+document.getElementById("width").oninput = check;
+document.getElementById("height").oninput = check;
+
 document.getElementById("themetoggle").onclick = toggleTheme;
+document.getElementById("solution").onchange = () => {
+  grid.toCanvas({
+    cellSize: 50,
+    lineWidth: 4,
+    bgColor: bgcolor,
+    canvas,
+    numbered: document.getElementById("numbers").checked,
+    lineColor: theme === "dark" ? "white" : "black",
+  });
+};
+document.getElementById("numbers").onchange = () => {
+  grid.toCanvas({
+    cellSize: 50,
+    lineWidth: 4,
+    bgColor: bgcolor,
+    canvas,
+    numbered: document.getElementById("numbers").checked,
+    lineColor: theme === "dark" ? "white" : "black",
+  });
+};
 let theme = "light";
 //@ts-ignore
 let prevWidth = document.getElementById("width").value;
 //@ts-ignore
 let prevHeight = document.getElementById("height").value;
 let grid: DistanceGrid, start: Cell, goal: Cell;
-gen();
 function gen() {
+  const width = parseInt(document.getElementById("width").value);
+  const height = parseInt(document.getElementById("height").value);
+  prevHeight = height;
+  prevWidth = width;
+  grid = new DistanceGrid(height, width);
+
+  AldousBroder.on(grid);
+  start = grid.randCell();
+  goal = grid.randCell();
+  start.distances();
+  grid.setPath(goal);
+  //@ts-ignore
+  grid.toCanvas({
+    cellSize: 50,
+    lineWidth: 4,
+    bgColor: bgcolor,
+    canvas,
+    numbered: document.getElementById("numbers").checked,
+    lineColor: theme === "dark" ? "white" : "black",
+  });
+}
+function save() {
+  var link = document.createElement("a");
+  link.href = grid
+    .toCanvas({
+      cellSize: 50,
+      lineWidth: 4,
+      bgColor: bgcolor,
+      numbered: document.getElementById("numbers").checked,
+      lineColor: theme === "dark" ? "white" : "black",
+    })
+    .toDataURL();
+  link.download = "maze.png";
+  link.click();
+}
+function toggleTheme() {
+  jQuery("body").animate(
+    {
+      backgroundColor: theme === "light" ? "#060606" : "#fff",
+    },
+    200,
+    () => {
+      if (theme === "light") {
+        theme = "dark";
+
+        document
+          .getElementById("themetoggle")
+          .setAttribute("class", "btn btn-light");
+        document
+          .getElementById("themetoggle")
+          .setAttribute(
+            "style",
+            `color: #000; background-color: #f8f9fa; border-color: #f8f9fa;`
+          );
+        document.getElementById("themetoggle").innerHTML =
+          "Switch to Light Theme";
+
+        document
+          .getElementById("dark-theme-style")
+          .setAttribute(
+            "href",
+            "https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cyborg/bootstrap.min.css"
+          );
+      } else {
+        theme = "light";
+        document
+          .getElementById("themetoggle")
+          .setAttribute("class", "btn btn-dark");
+        document.getElementById("themetoggle").innerHTML =
+          "Switch to Dark Theme";
+
+        document.getElementById("dark-theme-style").setAttribute("href", "");
+      }
+      grid.toCanvas({
+        cellSize: 50,
+        lineWidth: 4,
+        bgColor: bgcolor,
+        numbered: document.getElementById("numbers").checked,
+        lineColor: theme === "dark" ? "white" : "black",
+        canvas,
+      });
+    }
+  );
+}
+// toggleTheme();
+const bgcolor = (cell) => {
+  if (cell === start) {
+    return "Chartreuse";
+  }
+  if (cell === goal) {
+    return "BlueViolet";
+  }
+  //@ts-ignore
+  if (document.getElementById("solution").checked) {
+    if (grid.path.includes(cell)) {
+      return "aquamarine";
+    }
+  }
+
+  return theme === "dark" ? "black" : "white";
+};
+function check() {
   //@ts-ignore
 
   const width = parseInt(document.getElementById("width").value);
@@ -48,127 +170,5 @@ function gen() {
     };
     return;
   }
-  prevHeight = height;
-  prevWidth = width;
-  grid = new DistanceGrid(height, width);
-
-  AldousBroder.on(grid);
-  start = grid.randCell();
-  goal = grid.randCell();
-  start.distances();
-  grid.setPath(goal);
-  //@ts-ignore
-  grid.toCanvas(
-    20,
-    4,
-    canvas,
-    (cell) => {
-      if (cell === start) {
-        return "Chartreuse";
-      }
-      if (cell === goal) {
-        return "BlueViolet";
-      }
-      if (grid.path.includes(cell)) {
-        return "aquamarine";
-      }
-      return theme === "dark" ? "black" : "white";
-    },
-    theme === "dark" ? "white" : "black"
-  );
 }
-function save() {
-  var link = document.createElement("a");
-  link.href = grid
-    .toCanvas(
-      20,
-      4,
-      createCanvas(1, 1),
-      (cell) => {
-        if (cell === start) {
-          return "Chartreuse";
-        }
-        if (cell === goal) {
-          return "BlueViolet";
-        }
-        if (grid.path.includes(cell)) {
-          return "aquamarine";
-        }
-        return "white";
-      },
-      "black"
-    )
-    .toDataURL();
-  link.download = "maze.png";
-  link.click();
-}
-function toggleTheme() {
-  jQuery("body").animate(
-    {
-      backgroundColor: theme === "light" ? "#060606" : "#fff",
-    },
-    200,
-    () => {
-      if (theme === "light") {
-        theme = "dark";
-
-        document
-          .getElementById("themetoggle")
-          .setAttribute("class", "btn btn-light");
-        document
-          .getElementById("themetoggle")
-          .setAttribute(
-            "style",
-            `color: #000; background-color: #f8f9fa; border-color: #f8f9fa;`
-          );
-        document.getElementById("themetoggle").innerHTML =
-          "Switch to Light Theme";
-        document
-          .getElementById("footer")
-          .setAttribute(
-            "class",
-            "bg-dark text-center text-lg-start navbar fixed-bottom"
-          );
-        document
-          .getElementById("dark-theme-style")
-          .setAttribute(
-            "href",
-            "https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cyborg/bootstrap.min.css"
-          );
-      } else {
-        theme = "light";
-        document
-          .getElementById("themetoggle")
-          .setAttribute("class", "btn btn-dark");
-        document.getElementById("themetoggle").innerHTML =
-          "Switch to Dark Theme";
-        document
-          .getElementById("footer")
-          .setAttribute(
-            "class",
-            "bg-light text-center text-lg-start navbar fixed-bottom"
-          );
-        document.getElementById("dark-theme-style").setAttribute("href", "");
-      }
-      grid.toCanvas(
-        20,
-        4,
-        canvas,
-        (cell) => {
-          if (cell === start) {
-            return "Chartreuse";
-          }
-          if (cell === goal) {
-            return "BlueViolet";
-          }
-          if (grid.path.includes(cell)) {
-            return "aquamarine";
-          }
-          return theme === "dark" ? "black" : "white";
-        },
-        theme === "dark" ? "white" : "black"
-      );
-    }
-  );
-}
-// toggleTheme();
+document.getElementById("start").click();

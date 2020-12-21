@@ -116,14 +116,13 @@ class Grid {
    * @param width The width of the lines.
    * @returns The rendered canvas.
    */
-  toCanvas(
-    cellSize = 20,
-    width = 4,
-    canvas = createCanvas(10, 10),
-    bgColorArg?: (cell: Cell) => string | null,
-    lineColor = "white"
-  ) {
-    const bgColor = bgColorArg || this.bgColor;
+  toCanvas(options: ICanvasOptions) {
+    let { bgColor, canvas, cellSize, lineColor, numbered, lineWidth } = options;
+    if (!bgColor) {
+      bgColor = (cell) => "white";
+    }
+
+    console.log(options);
     const imgWidth = cellSize * this.columns;
     const imgHeight = cellSize * this.rows;
     if (!canvas) canvas = createCanvas(10, 10);
@@ -141,10 +140,20 @@ class Grid {
         const wall = lineColor;
         ctx.fillStyle = bgColor(cell) || "white";
         ctx.fillRect(x1, y1, x2, y2);
-        if (!cell.north) lineTo(x1, y1, x2, y1, wall, width);
-        if (!cell.west) lineTo(x1, y1, x1, y2, wall, width);
-        if (!cell.linked(cell.east)) lineTo(x2, y1, x2, y2, wall, width);
-        if (!cell.linked(cell.south)) lineTo(x1, y2, x2, y2, wall, width);
+        if (!cell.north) lineTo(x1, y1, x2, y1, wall, lineWidth);
+        if (!cell.west) lineTo(x1, y1, x1, y2, wall, lineWidth);
+        if (!cell.linked(cell.east)) lineTo(x2, y1, x2, y2, wall, lineWidth);
+        if (!cell.linked(cell.south)) lineTo(x1, y2, x2, y2, wall, lineWidth);
+        if (numbered) {
+          ctx.fillStyle = "black";
+          ctx.font = cellSize * 0.6 + "px Roboto";
+          ctx.textAlign = "center";
+          ctx.fillText(
+            cell.distance.toString(),
+            Math.floor((x1 + x2) / 2),
+            Math.floor((y1 + y2) / 2) + cellSize / 5
+          );
+        }
       });
     });
     return canvas;
@@ -197,3 +206,11 @@ function line(
   ctx.stroke();
 }
 export default Grid;
+interface ICanvasOptions {
+  cellSize: number;
+  lineWidth: number;
+  canvas?: Canvas;
+  bgColor?: (cell: Cell) => string | null;
+  lineColor: string;
+  numbered?: boolean;
+}
