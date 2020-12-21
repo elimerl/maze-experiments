@@ -30,6 +30,8 @@ console.log(maze.toString());
 maze.toCanvas().createPNGStream().pipe(createWriteStream("maze.png"));
 ```
 
+<!-- WHAT WHY DIDN'T IT BUILD -->
+
 More in [examples](https://github.com/elimerl/maze-experiments/tree/master/examples/)
 
 ## Docs

@@ -120,17 +120,17 @@ class Grid {
     cellSize = 20,
     width = 4,
     canvas = createCanvas(10, 10),
-    bgColorArg?: (cell: Cell) => string | null
+    bgColorArg?: (cell: Cell) => string | null,
+    lineColor = "white"
   ) {
     const bgColor = bgColorArg || this.bgColor;
     const imgWidth = cellSize * this.columns;
     const imgHeight = cellSize * this.rows;
+    if (!canvas) canvas = createCanvas(10, 10);
     canvas.width = imgWidth;
     canvas.height = imgHeight;
     const ctx = canvas.getContext("2d");
     const lineTo = line.bind(null, ctx);
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.imageSmoothingEnabled = false;
     this.data.forEach((row) => {
       row.forEach((cell) => {
@@ -138,7 +138,7 @@ class Grid {
         const y1 = cell.row * cellSize;
         const x2 = (cell.column + 1) * cellSize;
         const y2 = (cell.row + 1) * cellSize;
-        const wall = "black";
+        const wall = lineColor;
         ctx.fillStyle = bgColor(cell) || "white";
         ctx.fillRect(x1, y1, x2, y2);
         if (!cell.north) lineTo(x1, y1, x2, y1, wall, width);
