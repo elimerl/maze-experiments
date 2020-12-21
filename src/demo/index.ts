@@ -8,14 +8,22 @@ document.getElementById("save").onclick = save;
 
 document.getElementById("width").oninput = gen;
 document.getElementById("height").oninput = gen;
-
+//@ts-ignore
 let prevWidth = document.getElementById("width").value;
+//@ts-ignore
+
 let prevHeight = document.getElementById("height").value;
 gen();
 function gen() {
+  //@ts-ignore
+
   const width = parseInt(document.getElementById("width").value);
+  //@ts-ignore
+
   const height = parseInt(document.getElementById("height").value);
   if (width > 75) {
+    //@ts-ignore
+
     document.getElementById("width").value = prevWidth;
     //@ts-ignore
     alertify.notify("Invalid width! Width must be between 1-75.", "error");
@@ -27,6 +35,8 @@ function gen() {
     return;
   }
   if (height > 75) {
+    //@ts-ignore
+
     document.getElementById("height").value = prevHeight;
     //@ts-ignore
     alertify.notify("Invalid height! Height must be between 1-75.", "error");
