@@ -25,9 +25,9 @@
   },
   "scripts": {
     "docs": "typedoc --theme minimal --out docs src && touch docs/.nojekyll",
-    "build": "concurrently \"tsc\" \"yarn docs\" \"yarn build:demo\"",
+    "build": "concurrently \"tsc\" \"yarn build:demodocs\"",
     "demo": "parcel src/demo/index.html",
     "build:demo": "parcel build src/demo/index.html --out-dir docs/demo --public-url .",
-    "build:demodocs": "concurrently \"yarn docs\" \"yarn build:demo\""
+    "build:demodocs": "yarn docs && yarn build:demo"
   }
 }
