@@ -10,20 +10,22 @@ class AldousBroder {
    * @param grid The grid to generate a maze on.
    */
   static on(grid: Grid, cb = nullCb) {
-    let current = grid.getCell(0, 0);
-    let unvisited = grid.size - 1;
-    let iterations = 0;
-    while (unvisited > 0) {
-      if (cb) cb(grid, iterations, current);
-      const neighbor = _.sample(current.neighbors());
-      if (neighbor.links.length === 0) {
-        current.link(neighbor);
-        unvisited--;
+    return new Promise((resolve, reject) => {
+      let current = grid.getCell(0, 0);
+      let unvisited = grid.size - 1;
+      let iterations = 0;
+      while (unvisited > 0) {
+        if (cb) cb(grid, iterations, current);
+        const neighbor = _.sample(current.neighbors());
+        if (neighbor.links.length === 0) {
+          current.link(neighbor);
+          unvisited--;
+        }
+        current = neighbor;
+        iterations++;
       }
-      current = neighbor;
-      iterations++;
-    }
-    return grid;
+      resolve(grid);
+    });
   }
 }
 export default AldousBroder;

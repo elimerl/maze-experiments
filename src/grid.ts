@@ -1,4 +1,4 @@
-import { createCanvas, CanvasRenderingContext2D } from "canvas";
+import { createCanvas, CanvasRenderingContext2D, Canvas } from "canvas";
 import Cell from "./cell";
 import Distances from "./dijkstras";
 /**
@@ -116,10 +116,17 @@ class Grid {
    * @param width The width of the lines.
    * @returns The rendered canvas.
    */
-  toCanvas(cellSize = 20, width = 4, bgColor = this.bgColor) {
+  toCanvas(
+    cellSize = 20,
+    width = 4,
+    canvas = createCanvas(10, 10),
+    bgColorArg?: (cell: Cell) => string | null
+  ) {
+    const bgColor = bgColorArg || this.bgColor;
     const imgWidth = cellSize * this.columns;
     const imgHeight = cellSize * this.rows;
-    const canvas = createCanvas(imgWidth, imgHeight);
+    canvas.width = imgWidth;
+    canvas.height = imgHeight;
     const ctx = canvas.getContext("2d");
     const lineTo = line.bind(null, ctx);
     ctx.fillStyle = "white";

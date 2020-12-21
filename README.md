@@ -30,7 +30,13 @@ More in [examples](https://github.com/elimerl/maze-experiments/tree/master/examp
 
 ## Docs
 
-The documentation is online at [https://elimerl.github.io/maze-experiments/](https://elimerl.github.io/maze-experiments/). For the latest version (in case I forgot to rebuild docs) clone the repository and run.
+The documentation is online at [https://elimerl.github.io/maze-experiments/](https://elimerl.github.io/maze-experiments/).
+
+## Demo
+
+A demo is available at [https://elimerl.github.io/maze-experiments/demo/](https://elimerl.github.io/maze-experiments/demo/)
+
+## Building
 
 ```sh
 yarn build

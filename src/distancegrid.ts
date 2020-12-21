@@ -67,6 +67,7 @@ class DistanceGrid extends Grid {
     return this.path;
   }
   bgColor(cell: Cell): string {
+    if (!this) return null;
     if (this.path && this.path.includes(cell)) {
       if (this.path[0] === cell) {
         return "#fffa00";
