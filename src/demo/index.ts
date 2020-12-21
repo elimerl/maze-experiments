@@ -17,6 +17,7 @@ document.getElementById("solution").onchange = () => {
     lineWidth: 4,
     bgColor: bgcolor,
     canvas,
+    //@ts-ignore
     numbered: document.getElementById("numbers").checked,
     lineColor: theme === "dark" ? "white" : "black",
   });
@@ -27,6 +28,8 @@ document.getElementById("numbers").onchange = () => {
     lineWidth: 4,
     bgColor: bgcolor,
     canvas,
+    //@ts-ignore
+
     numbered: document.getElementById("numbers").checked,
     lineColor: theme === "dark" ? "white" : "black",
   });
@@ -38,7 +41,11 @@ let prevWidth = document.getElementById("width").value;
 let prevHeight = document.getElementById("height").value;
 let grid: DistanceGrid, start: Cell, goal: Cell;
 function gen() {
+  //@ts-ignore
+
   const width = parseInt(document.getElementById("width").value);
+  //@ts-ignore
+
   const height = parseInt(document.getElementById("height").value);
   prevHeight = height;
   prevWidth = width;
@@ -55,6 +62,7 @@ function gen() {
     lineWidth: 4,
     bgColor: bgcolor,
     canvas,
+    //@ts-ignore
     numbered: document.getElementById("numbers").checked,
     lineColor: theme === "dark" ? "white" : "black",
   });
@@ -65,7 +73,9 @@ function save() {
     .toCanvas({
       cellSize: 50,
       lineWidth: 4,
+
       bgColor: bgcolor,
+      //@ts-ignore
       numbered: document.getElementById("numbers").checked,
       lineColor: theme === "dark" ? "white" : "black",
     })
@@ -115,6 +125,7 @@ function toggleTheme() {
         cellSize: 50,
         lineWidth: 4,
         bgColor: bgcolor,
+        //@ts-ignore
         numbered: document.getElementById("numbers").checked,
         lineColor: theme === "dark" ? "white" : "black",
         canvas,
