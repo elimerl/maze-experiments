@@ -8,6 +8,10 @@
 
 > A collection of experiments with maze generation and solving.
 
+## Demo
+
+[https://elimerl.github.io/maze-experiments/demo/](https://elimerl.github.io/maze-experiments/demo/) shows off the capabilities of this library. The source is available in [https://github.com/elimerl/maze-experiments/tree/master/docs/demo](https://github.com/elimerl/maze-experiments/tree/master/docs/demo) and shows a possible example of using [parcel-bundler](https://parceljs.org/) with this.
+
 ## Install
 
 ```sh
@@ -31,10 +35,6 @@ More in [examples](https://github.com/elimerl/maze-experiments/tree/master/examp
 ## Docs
 
 The documentation is online at [https://elimerl.github.io/maze-experiments/](https://elimerl.github.io/maze-experiments/).
-
-## Demo
-
-A demo is available at [https://elimerl.github.io/maze-experiments/demo/](https://elimerl.github.io/maze-experiments/demo/)
 
 ## Building
 
