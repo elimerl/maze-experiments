@@ -1,7 +1,6 @@
-import { DistanceGrid, AldousBroder } from "../main";
+import { DistanceGrid, AldousBroder, Cell } from "../main";
 import { cloneDeep } from "lodash";
 import { Canvas, createCanvas } from "canvas";
-import Cell from "../../types/cell";
 //@ts-expect-error
 const canvas: Canvas = document.getElementById("maze");
 document.getElementById("start").onclick = gen;
