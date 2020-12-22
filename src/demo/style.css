@@ -43,5 +43,6 @@ html {
   justify-content: center;
 }
 canvas {
-  max-width: 35em;
+  max-width: 40em;
+  max-height: 40em;
 }

@@ -157,12 +157,12 @@ function check() {
   //@ts-ignore
 
   const height = parseInt(document.getElementById("height").value);
-  if (width > 75) {
+  if (width > 60) {
     //@ts-ignore
 
     document.getElementById("width").value = prevWidth;
     //@ts-ignore
-    alertify.notify("Invalid width! Width must be between 1-75.", "error");
+    alertify.notify("Invalid width! Width must be between 1-60.", "error");
     document.getElementById("width").setAttribute("class", "shake");
     document.getElementById("width").onanimationend = () => {
       document.getElementById("width").setAttribute("class", "");
@@ -170,11 +170,11 @@ function check() {
 
     return;
   }
-  if (height > 75) {
+  if (height > 60) {
     // @ts-ignore
     document.getElementById("height").value = prevHeight;
     // @ts-ignore
-    alertify.notify("Invalid height! Height must be between 1-75.", "error", 1);
+    alertify.notify("Invalid height! Height must be between 1-60.", "error", 1);
     document.getElementById("height").setAttribute("class", "shake");
     document.getElementById("height").onanimationend = () => {
       document.getElementById("height").setAttribute("class", "");

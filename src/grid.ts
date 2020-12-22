@@ -1,6 +1,5 @@
 import { createCanvas, CanvasRenderingContext2D, Canvas } from "canvas";
 import Cell from "./cell";
-import Distances from "./dijkstras";
 /**
  * A grid of {@link Cell}s.
  * @class
