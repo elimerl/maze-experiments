@@ -10,7 +10,6 @@ document.getElementById("save").onclick = save;
 document.getElementById("width").oninput = check;
 document.getElementById("height").oninput = check;
 
-document.getElementById("themetoggle").onclick = toggleTheme;
 document.getElementById("solution").onchange = () => {
   grid.toCanvas({
     cellSize: 50,
@@ -19,7 +18,7 @@ document.getElementById("solution").onchange = () => {
     canvas,
     //@ts-ignore
     numbered: document.getElementById("numbers").checked,
-    lineColor: theme === "dark" ? "white" : "black",
+    color: theme === "dark" ? "white" : "black",
   });
 };
 document.getElementById("numbers").onchange = () => {
@@ -31,7 +30,7 @@ document.getElementById("numbers").onchange = () => {
     //@ts-ignore
 
     numbered: document.getElementById("numbers").checked,
-    lineColor: theme === "dark" ? "white" : "black",
+    color: theme === "dark" ? "white" : "black",
   });
 };
 let theme = "light";
@@ -64,7 +63,7 @@ function gen() {
     canvas,
     //@ts-ignore
     numbered: document.getElementById("numbers").checked,
-    lineColor: theme === "dark" ? "white" : "black",
+    color: theme === "dark" ? "white" : "black",
   });
 }
 function save() {
@@ -77,74 +76,25 @@ function save() {
       bgColor: bgcolor,
       //@ts-ignore
       numbered: document.getElementById("numbers").checked,
-      lineColor: theme === "dark" ? "white" : "black",
+      color: theme === "dark" ? "white" : "black",
     })
     .toDataURL();
-  link.download = "maze.png";
+  link.download =
+    "maze-" + new Date().getDay() + new Date().getHours() + ".png";
   link.click();
 }
-function toggleTheme() {
-  jQuery("body").animate(
-    {
-      backgroundColor: theme === "light" ? "#060606" : "#fff",
-    },
-    200,
-    () => {
-      if (theme === "light") {
-        theme = "dark";
 
-        document
-          .getElementById("themetoggle")
-          .setAttribute("class", "btn btn-light");
-        document
-          .getElementById("themetoggle")
-          .setAttribute(
-            "style",
-            `color: #000; background-color: #f8f9fa; border-color: #f8f9fa;`
-          );
-        document.getElementById("themetoggle").innerHTML =
-          "Switch to Light Theme";
-
-        document
-          .getElementById("dark-theme-style")
-          .setAttribute(
-            "href",
-            "https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cyborg/bootstrap.min.css"
-          );
-      } else {
-        theme = "light";
-        document
-          .getElementById("themetoggle")
-          .setAttribute("class", "btn btn-dark");
-        document.getElementById("themetoggle").innerHTML =
-          "Switch to Dark Theme";
-
-        document.getElementById("dark-theme-style").setAttribute("href", "");
-      }
-      grid.toCanvas({
-        cellSize: 50,
-        lineWidth: 4,
-        bgColor: bgcolor,
-        //@ts-ignore
-        numbered: document.getElementById("numbers").checked,
-        lineColor: theme === "dark" ? "white" : "black",
-        canvas,
-      });
-    }
-  );
-}
-// toggleTheme();
 const bgcolor = (cell) => {
   if (cell === start) {
-    return "Chartreuse";
+    return "#02bf35";
   }
   if (cell === goal) {
-    return "BlueViolet";
+    return "#e3d400";
   }
   //@ts-ignore
   if (document.getElementById("solution").checked) {
     if (grid.path.includes(cell)) {
-      return "aquamarine";
+      return "#00e3bd";
     }
   }
 
@@ -182,4 +132,3 @@ function check() {
     return;
   }
 }
-document.getElementById("start").click();

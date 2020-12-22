@@ -116,7 +116,7 @@ class Grid {
    * @returns The rendered canvas.
    */
   toCanvas(options: ICanvasOptions) {
-    let { bgColor, canvas, cellSize, lineColor, numbered, lineWidth } = options;
+    let { bgColor, canvas, cellSize, color, numbered, lineWidth } = options;
     if (!bgColor) {
       bgColor = (cell) => "white";
     }
@@ -136,7 +136,7 @@ class Grid {
         const y1 = cell.row * cellSize;
         const x2 = (cell.column + 1) * cellSize;
         const y2 = (cell.row + 1) * cellSize;
-        const wall = lineColor;
+        const wall = color;
         ctx.fillStyle = bgColor(cell) || "white";
         ctx.fillRect(x1, y1, x2, y2);
         if (!cell.north) lineTo(x1, y1, x2, y1, wall, lineWidth);
@@ -144,7 +144,7 @@ class Grid {
         if (!cell.linked(cell.east)) lineTo(x2, y1, x2, y2, wall, lineWidth);
         if (!cell.linked(cell.south)) lineTo(x1, y2, x2, y2, wall, lineWidth);
         if (numbered) {
-          ctx.fillStyle = "black";
+          ctx.fillStyle = options.color;
           ctx.font = cellSize * 0.6 + "px Roboto";
           ctx.textAlign = "center";
           ctx.fillText(
@@ -210,6 +210,6 @@ interface ICanvasOptions {
   lineWidth: number;
   canvas?: Canvas;
   bgColor?: (cell: Cell) => string | null;
-  lineColor: string;
+  color: string;
   numbered?: boolean;
 }

@@ -18,7 +18,7 @@ class DistanceGrid extends Grid {
     while (current.distance !== 0) {
       const neighbor = current
         .neighbors()
-        .find((c) => c.distance === current.distance - 1);
+        .find((c) => c.distance === current.distance - 1 && c.linked(current));
       if (!neighbor) {
         throw new Error("Could not find a path");
       }
