@@ -114,8 +114,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-# Images
+# Images and videos
 *.png
+*.mp4
 # Build output
 lib
 types
