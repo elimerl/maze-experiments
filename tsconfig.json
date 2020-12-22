@@ -3,7 +3,8 @@
         "outDir": "lib",
         "lib": ["ES2017"],
         "declaration": true,
-        "declarationDir": "types"
+        "declarationDir": "types",
+        "types": ["node"]
     },
     "include": ["src/*.ts"]
 }
