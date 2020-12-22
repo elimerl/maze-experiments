@@ -119,3 +119,4 @@ dist
 # Build output
 lib
 types
+docs
