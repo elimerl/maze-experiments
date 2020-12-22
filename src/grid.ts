@@ -145,7 +145,8 @@ class Grid {
         if (!cell.linked(cell.south)) lineTo(x1, y2, x2, y2, wall, lineWidth);
         if (numbered) {
           ctx.fillStyle = options.color;
-          ctx.font = cellSize * 0.6 + "px Roboto";
+          ctx.font = cellSize / 2 + "px " + "sans-serif";
+          console.log(ctx.font, cellSize);
           ctx.textAlign = "center";
           ctx.fillText(
             cell.distance.toString(),
@@ -212,4 +213,5 @@ interface ICanvasOptions {
   bgColor?: (cell: Cell) => string | null;
   color: string;
   numbered?: boolean;
+  font?: string;
 }

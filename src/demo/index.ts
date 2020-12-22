@@ -3,6 +3,9 @@ import { cloneDeep } from "lodash";
 import { Canvas, createCanvas } from "canvas";
 //@ts-expect-error
 const canvas: Canvas = document.getElementById("maze");
+const font = `-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+"Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+"Segoe UI Symbol;`;
 document.getElementById("start").onclick = gen;
 document.getElementById("save").onclick = save;
 
@@ -18,6 +21,7 @@ document.getElementById("solution").onchange = () => {
     //@ts-ignore
     numbered: document.getElementById("numbers").checked,
     color: theme === "dark" ? "white" : "black",
+    font,
   });
 };
 document.getElementById("numbers").onchange = () => {
@@ -30,6 +34,7 @@ document.getElementById("numbers").onchange = () => {
 
     numbered: document.getElementById("numbers").checked,
     color: theme === "dark" ? "white" : "black",
+    font,
   });
 };
 let theme = "light";
@@ -63,6 +68,7 @@ function gen() {
     //@ts-ignore
     numbered: document.getElementById("numbers").checked,
     color: theme === "dark" ? "white" : "black",
+    font,
   });
 }
 function save() {
@@ -76,6 +82,7 @@ function save() {
       //@ts-ignore
       numbered: document.getElementById("numbers").checked,
       color: theme === "dark" ? "white" : "black",
+      font,
     })
     .toDataURL();
   link.download =
