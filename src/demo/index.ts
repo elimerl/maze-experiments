@@ -14,7 +14,7 @@ document.getElementById("height").oninput = check;
 
 document.getElementById("solution").onchange = () => {
   grid.toCanvas({
-    cellSize: 50,
+    cellSize,
     lineWidth: 4,
     bgColor: bgcolor,
     canvas,
@@ -26,7 +26,7 @@ document.getElementById("solution").onchange = () => {
 };
 document.getElementById("numbers").onchange = () => {
   grid.toCanvas({
-    cellSize: 50,
+    cellSize,
     lineWidth: 4,
     bgColor: bgcolor,
     canvas,
@@ -44,6 +44,7 @@ let prevWidth = document.getElementById("width").value;
 let prevHeight = document.getElementById("height").value;
 let grid: DistanceGrid, start: Cell, goal: Cell;
 function gen() {
+  document.getElementById("fullscreen").hidden = false;
   //@ts-ignore
 
   const width = parseInt(document.getElementById("width").value);
@@ -55,13 +56,15 @@ function gen() {
   grid = new DistanceGrid(height, width);
 
   AldousBroder.on(grid);
-  start = grid.randCell();
-  goal = grid.randCell();
+  start = !start ? grid.getCell(0, 0) : grid.getCell(start.row, start.column);
+  goal = !goal
+    ? grid.getCell(grid.rows - 1, grid.columns - 1)
+    : grid.getCell(goal.row, goal.column);
   start.distances();
   grid.setPath(goal);
   //@ts-ignore
   grid.toCanvas({
-    cellSize: 50,
+    cellSize,
     lineWidth: 4,
     bgColor: bgcolor,
     canvas,
@@ -71,11 +74,60 @@ function gen() {
     font,
   });
 }
+function getCursorPosition(canvas, event, setGoal: boolean) {
+  const rect = canvas.getBoundingClientRect();
+  const xScale = (cellSize * grid.columns) / (rect.right - rect.left);
+  const yScale = (cellSize * grid.rows) / (rect.bottom - rect.top);
+
+  const x = (event.clientX - rect.left) * xScale;
+  const y = (event.clientY - rect.top) * yScale;
+
+  if (setGoal) {
+    goal = grid.getCell(Math.floor(y / cellSize), Math.floor(x / cellSize));
+    grid.setPath(goal);
+    //@ts-ignore
+    grid.toCanvas({
+      cellSize,
+      lineWidth: 4,
+      bgColor: bgcolor,
+      canvas,
+      //@ts-ignore
+      numbered: document.getElementById("numbers").checked,
+      color: theme === "dark" ? "white" : "black",
+      font,
+    });
+  } else {
+    start = grid.getCell(Math.floor(y / cellSize), Math.floor(x / cellSize));
+    start.distances();
+    grid.setPath(goal);
+    //@ts-ignore
+    grid.toCanvas({
+      cellSize,
+      lineWidth: 4,
+      bgColor: bgcolor,
+      canvas,
+      //@ts-ignore
+      numbered: document.getElementById("numbers").checked,
+      color: theme === "dark" ? "white" : "black",
+      font,
+    });
+  }
+}
+//@ts-expect-error
+canvas.addEventListener("click", function (e) {
+  getCursorPosition(canvas, e, true);
+});
+//@ts-expect-error
+canvas.addEventListener("contextmenu", function (e) {
+  getCursorPosition(canvas, e, false);
+});
+
+const cellSize = 50;
 function save() {
   var link = document.createElement("a");
   link.href = grid
     .toCanvas({
-      cellSize: 50,
+      cellSize,
       lineWidth: 4,
 
       bgColor: bgcolor,

@@ -37,6 +37,10 @@ class Cell {
    * The distance of this cell to the root cell.
    */
   distance: number;
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
   /**
    * Create a cell.
    * @constructor
@@ -134,6 +138,12 @@ class Cell {
       frontier = new_frontier;
     }
     return distances;
+  }
+  setPositionCanvas(x1: number, y1: number, x2: number, y2: number) {
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
   }
 }
 export default Cell;

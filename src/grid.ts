@@ -121,7 +121,6 @@ class Grid {
       bgColor = (cell) => "white";
     }
 
-    console.log(options);
     const imgWidth = cellSize * this.columns;
     const imgHeight = cellSize * this.rows;
     if (!canvas) canvas = createCanvas(10, 10);
@@ -136,6 +135,7 @@ class Grid {
         const y1 = cell.row * cellSize;
         const x2 = (cell.column + 1) * cellSize;
         const y2 = (cell.row + 1) * cellSize;
+        cell.setPositionCanvas(x1, y1, x2, y2);
         const wall = color;
         ctx.fillStyle = bgColor(cell) || "white";
         ctx.fillRect(x1, y1, x2, y2);

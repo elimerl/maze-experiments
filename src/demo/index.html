@@ -24,12 +24,28 @@
     />
   </head>
   <body style="padding: 1%">
-    <canvas id="maze" width="0" height="0"></canvas><br />
+    <canvas
+      oncontextmenu="return false;"
+      class="noselect"
+      id="maze"
+      width="0"
+      height="0"
+    ></canvas
+    ><br />
     <button type="button" class="btn btn-primary" id="start">
       Generate New
     </button>
 
     <button type="button" class="btn btn-primary" id="save">Save</button>
+    <button
+      type="button"
+      class="btn btn-info"
+      hidden
+      onclick="document.getElementById('maze').requestFullscreen()"
+      id="fullscreen"
+    >
+      Fullscreen
+    </button>
 
     <h4 style="display: block">Options</h4>
     <h5 style="display: inline-block">Show solution</h5>
